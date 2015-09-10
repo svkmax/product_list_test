@@ -7,7 +7,9 @@
 
   /** @ngInject */
   function MainController($scope, $resource, NgTableParams, $filter, domain_name, $http) {
-    var products = $resource(domain_name + 'products').query(function()
+    var productsResource = $resource(domain_name + 'products');
+
+    var products = productsResource.query(function()
     {
       $scope.tableParams = new NgTableParams({
         page: 1,
@@ -33,10 +35,8 @@
             product.sku = response_object.sku;
             product.category = response_object.category;
             product.name = response_object.name;
-
         });
       }
-
     });
   };
 })();
