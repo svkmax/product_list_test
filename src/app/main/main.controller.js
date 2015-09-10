@@ -29,14 +29,14 @@
 
       $scope.updateProduct = function updateProduct($data, product) {
         $http.put(domain_name + 'products/' + product.id,
-          {product: {name: product.name, category: product.category, sku: product.sku }}).then(function(response) {
+          {product: {name: product.name, category: product.category, sku: product.sku }}).then(function() {
         }, function(response) {
             var response_object = response.data;
             product.sku = response_object.sku;
             product.category = response_object.category;
             product.name = response_object.name;
         });
-      }
+      };
     });
-  };
+  }
 })();
