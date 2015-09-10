@@ -12,7 +12,6 @@
       <td data-title="'SKU'">
         <span ng-show="!pro.sku" style="color:red"> SKU should be present</span>
         <span ng-if="!pro.$edit">{{pro.sku}}</span>
-
         <div ng-if="pro.$edit"><input class="form-control" type="text" ng-model="pro.sku"/></div>
       </td>
       <td data-title="'Category '" filter="{ 'category': 'text' }">
@@ -20,7 +19,6 @@
         <span ng-if="!pro.$edit">
           {{ pro.category }}
         </span>
-
         <div ng-if="pro.$edit"><input class="form-control" type="text" ng-model="pro.category"/></div>
       </td>
       <td data-title="'Actions'" width="200">
