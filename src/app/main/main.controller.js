@@ -27,7 +27,7 @@
         }
       });
 
-      $scope.updateProduct = function updateProduct($data, product) {
+      $scope.updateProduct = function updateProduct(product) {
         $http.put(domain_name + 'products/' + product.id,
           {product: {name: product.name, category: product.category, sku: product.sku }}).then(function() {
         }, function(response) {
