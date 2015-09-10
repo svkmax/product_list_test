@@ -1,0 +1,32 @@
+<div class="container">
+  <table ng-table="tableParams" class="table table-striped table-bordered" show-filter="true">
+    <tr ng-repeat="pro in $data | filter:{category:filterCategory}">
+      <td data-title="'Name'">
+        <span ng-if="!pro.$edit">{{pro.name}}</span>
+        <div ng-if="pro.$edit" >
+          <span ng-show="!pro.name" style="color:red"> Name should be present</span>
+          <input class="form-control" type="text" ng-class="{ error: !pro.name }" ng-model="pro.name" name="proName"  />
+        </div>
+      </td>
+      <td data-title="'SKU'">
+        <span ng-show="!pro.sku" style="color:red"> SKU should be present</span>
+        <span ng-if="!pro.$edit">{{pro.sku}}</span>
+        <div ng-if="pro.$edit"><input class="form-control" type="text" ng-model="pro.sku" /></div>
+      </td>
+      <td data-title="'Category '" filter="{ 'category': 'text' }">
+        <span ng-show="!pro.category" style="color:red"> Category should be present</span>
+        <span ng-if="!pro.$edit">
+          {{ pro.category }}
+        </span>
+        <div ng-if="pro.$edit"><input class="form-control" type="text" ng-model="pro.category" /></div>
+      </td>
+      <td data-title="'Actions'" width="200">
+        <a ng-if="!pro.$edit" href="" class="btn btn-default btn-xs" ng-click="pro.$edit = true;">Edit</a>
+        <a ng-if="pro.$edit" href="" class="btn btn-primary btn-xs"
+           ng-click="pro.$edit = false; updateProduct($data, pro);" ng-disabled="!pro.name || !pro.sku || !pro.category">Save</a>
+        <a ng-if="pro.$edit" href="" class="btn btn-default btn-xs" ng-click="pro.$edit = false;">Cancel</a>
+      </td>
+    </tr>
+  </table>
+</div>
+</div>
