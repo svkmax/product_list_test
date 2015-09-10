@@ -14,7 +14,7 @@
         <span ng-if="!pro.$edit">{{pro.sku}}</span>
         <div ng-if="pro.$edit"><input class="form-control" type="text" ng-model="pro.sku"/></div>
       </td>
-      <td data-title="'Category '" filter="{ 'category': 'text' }">
+      <td data-title="'Category'" filter="{ 'category': 'text' }">
         <span ng-show="!pro.category" style="color:red"> Category should be present</span>
         <span ng-if="!pro.$edit">
           {{ pro.category }}
