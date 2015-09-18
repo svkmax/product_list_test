@@ -1,6 +1,7 @@
 <div class="container">
+  <span ng-if="total"></span>
   <table ng-table="tableParams" class="table table-striped table-bordered" show-filter="true">
-    <tr ng-repeat="pro in $data | filter:{category:filterCategory}">
+    <tr ng-repeat="pro in products | filter:{category:filterCategory}">
       <td data-title="'Name'">
         <span ng-if="!pro.$edit">{{pro.name}}</span>
 
