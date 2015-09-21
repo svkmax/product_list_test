@@ -16,7 +16,7 @@
       }
     }, {
       total: 1000,
-      getData: function(params) {
+      getData: function (params) {
         params.filter().category !== "" ? getFilteredAndPagedData(params) : getPagedData(params)
       }
     });
@@ -37,15 +37,18 @@
 
     function getFilteredAndPagedData(params) {
       $http.get(domain_name + 'products/filter',
-        { params: {filter: params.filter().category,
-          per_page: params.count(),
-          page_number: params.page() }
-      }).then(function(response){
-        $scope.products = response.data.products;
-        params.total(response.data.total);
+        {
+          params: {
+            filter: params.filter().category,
+            per_page: params.count(),
+            page_number: params.page()
+          }
+        }).then(function (response) {
+          $scope.products = response.data.products;
+          params.total(response.data.total);
           params.data = $scope.products;
           return params.data
-      });
+        });
     }
 
     $scope.updateProduct = function updateProduct(product) {
