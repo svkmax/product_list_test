@@ -8,38 +8,45 @@
   /** @ngInject */
   function MainController($scope, NgTableParams, $filter, domain_name, $http) {
     $scope.products = [];
-    var total = function() {
-
-    }
-    $scope.total = $http.get(domain_name + 'products/count').then(function (response) {
-      $scope.total = response.data
-    });
-
     $scope.tableParams = new NgTableParams({
       page: 1,
       count: 10,
       filter: {
-        category: null       // initial filter
+        category: ""       // initial filter
       }
     }, {
-      total: $scope.total,
-      getData: function (params) {
-        $http.get(domain_name + 'products', {
-          params: {
-            per_page: params.count(),
-            page_number: params.page()
-          }
-        }).then(function (response) {
-          $scope.products = response.data.products;
-          var orderedData = params.filter().category !== null ?
-            $filter('filter')($scope.products, params.filter()) :
-            $scope.products;
-          $scope.products = orderedData;
-          params.data = $scope.products;
-          return $scope.products;
-        });
+      total: 1000,
+      getData: function(params) {
+        params.filter().category !== "" ? getFilteredAndPagedData(params) : getPagedData(params)
       }
     });
+
+    function getPagedData(params) {
+      $http.get(domain_name + 'products', {
+        params: {
+          per_page: params.count(),
+          page_number: params.page()
+        }
+      }).then(function (response) {
+        $scope.products = response.data.products;
+        params.data = $scope.products;
+        params.total(response.data.total);
+        return params.data;
+      });
+    }
+
+    function getFilteredAndPagedData(params) {
+      $http.get(domain_name + 'products/filter',
+        { params: {filter: params.filter().category,
+          per_page: params.count(),
+          page_number: params.page() }
+      }).then(function(response){
+        $scope.products = response.data.products;
+        params.total(response.data.total);
+          params.data = $scope.products;
+          return params.data
+      });
+    }
 
     $scope.updateProduct = function updateProduct(product) {
       $http.put(domain_name + 'products/' + product.id,
