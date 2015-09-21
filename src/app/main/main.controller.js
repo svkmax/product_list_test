@@ -6,7 +6,7 @@
     .controller('MainController', MainController);
 
   /** @ngInject */
-  function MainController($scope, NgTableParams, $filter, domain_name, $http) {
+  function MainController($scope, NgTableParams, domain_name, $http) {
     $scope.products = [];
     $scope.tableParams = new NgTableParams({
       page: 1,
